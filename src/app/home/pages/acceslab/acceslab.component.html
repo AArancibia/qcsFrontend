@@ -1,0 +1,198 @@
+<div nz-row
+     nzType="flex" [nzJustify]="'space-around'">
+  <div nz-col [nzXs]="'24'" [nzMd]="'8'" style="background-color: #ffffff;">
+    <h1>HOLA</h1>
+  </div>
+  <div nz-col [nzXs]="'24'"  [nzMd]="'1'"></div>
+  <div nz-col [nzXs]="'24'" [nzMd]="'15'" style="background-color: #ffffff;">
+    <nz-page-header (nzBack)="onBack()"
+                    *ngFor="let panel of panels; let indice = index"
+                    [nzBackIcon]="icon"
+                    [hidden]="!panel.active"
+                    [nzTitle]="panel.title" [nzSubtitle]="panel.subtitle">
+      <ng-template #icon>
+        <i nz-icon *ngIf="panel.backIcon" nzType="arrow-left" nzTheme="outline"></i>
+      </ng-template>
+      <nz-page-header-extra>
+        <i nz-icon nzType="setting"
+           *ngIf="panel.detail"
+           (click)="abrirFormulario( indice )"></i>
+      </nz-page-header-extra>
+      <nz-page-header-content *ngIf="panel.content">
+        <div *ngIf="indice === 0">
+          <form >
+            <div nz-row class="margin-bottom-medium">
+              <div nz-col [nzMd]="5">
+                <input type="text" nz-input>
+              </div>
+              <div nz-col [nzMd]="1"></div>
+              <div nz-col [nzMd]="5">
+                <input type="text" nz-input>
+              </div>
+              <div nz-col [nzMd]="1"></div>
+              <div nz-col [nzMd]="5">
+                <input type="text" nz-input>
+              </div>
+              <div nz-col [nzMd]="1"></div>
+              <div nz-col [nzMd]="5">
+                <input type="text" nz-input>
+              </div>
+            </div>
+            <div nz-row>
+              <div nz-col [nzMd]="5">
+                <nz-select [(ngModel)]="selectedPerfil"
+                           name="perfil"
+                           nzAllowClear nzPlaceHolder="Choose">
+                  <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                  <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                  &lt;!&ndash;<nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>&ndash;&gt;
+                </nz-select>
+              </div>
+              <div nz-col [nzMd]="1"></div>
+              <div nz-col [nzMd]="5">
+                <nz-select [(ngModel)]="selectedEstado"
+                           name="estado"
+                           nzAllowClear nzPlaceHolder="Choose">
+                  <nz-option [nzValue]="true" nzLabel="Activo"></nz-option>
+                  <nz-option [nzValue]="false" nzLabel="Inactivo"></nz-option>
+                </nz-select>
+              </div>
+              <div nz-col [nzMd]="1"></div>
+              <div nz-col [nzMd]="5">
+                <button nz-button
+                        type="button"
+                        (click)="siguiente( indice )"
+                        nzBlock>Filtrar</button>
+              </div>
+              <div nz-col [nzMd]="1"></div>
+              <div nz-col [nzMd]="5">
+                <button nz-button nzBlock>Limpiar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div *ngIf="indice === 1">
+          <p>En Maquinas</p>
+          <button nz-button
+                  type="button"
+                  (click)="siguiente( indice )"
+                  nzBlock>Filtrar</button>
+        </div>
+        <div *ngIf="indice === 2">
+          <p>En Componentes</p>
+          <button nz-button
+                  type="button"
+                  (click)="siguiente( indice )"
+                  nzBlock>Filtrar</button>
+        </div>
+        <div *ngIf="indice === 3">
+          <p>En Muestras</p>
+          <button nz-button
+                  type="button"
+                  (click)="siguiente( indice )"
+                  nzBlock>Filtrar</button>
+        </div>
+      </nz-page-header-content>
+    </nz-page-header>
+
+    <!-- TABLE-->
+    <!--<div nz-row style="display: flex; justify-content: center;">
+      <div nz-col [nzMd]="20">
+        <form nz-form nzLayout="inline">
+          <nz-form-item>
+            <nz-form-label><label>Loading</label></nz-form-label>
+            <nz-form-control><nz-switch [(ngModel)]="loading" name="loading"></nz-switch></nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label><label>Pagination</label></nz-form-label>
+            <nz-form-control><nz-switch [(ngModel)]="pagination" name="pagination"></nz-switch></nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label><label>PageSizeChanger</label></nz-form-label>
+            <nz-form-control><nz-switch [(ngModel)]="sizeChanger" name="sizeChanger"></nz-switch></nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label><label>Column Header</label></nz-form-label>
+            <nz-form-control><nz-switch [(ngModel)]="header" name="header"></nz-switch></nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label><label>Expandable</label></nz-form-label>
+            <nz-form-control><nz-switch [(ngModel)]="expandable" name="expandable"></nz-switch></nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label><label>Fixed Header</label></nz-form-label>
+            <nz-form-control><nz-switch [(ngModel)]="fixHeader" name="fixHeader"></nz-switch></nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label><label>No Result</label></nz-form-label>
+            <nz-form-control
+            ><nz-switch [(ngModel)]="noResult" (ngModelChange)="noResultChange($event)" name="noResult"></nz-switch
+            ></nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label><label>Simple Pagination</label></nz-form-label>
+            <nz-form-control><nz-switch [(ngModel)]="simple" name="simple"></nz-switch></nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label><label>Size</label></nz-form-label>
+            <nz-form-control>
+              <nz-radio-group [(ngModel)]="size" name="size">
+                <label nz-radio-button nzValue="default">Default</label>
+                <label nz-radio-button nzValue="middle">Middle</label>
+                <label nz-radio-button nzValue="small">Small</label>
+              </nz-radio-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label><label>Pagination Position</label></nz-form-label>
+            <nz-form-control>
+              <nz-radio-group [(ngModel)]="position" name="position">
+                <label nz-radio-button nzValue="top">Top</label>
+                <label nz-radio-button nzValue="bottom">Bottom</label>
+                <label nz-radio-button nzValue="both">Both</label>
+              </nz-radio-group>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+      </div>
+    </div>-->
+    <div nz-row style="display: flex; justify-content: center;">
+      <div nz-col [nzMd]="22">
+        <nz-table
+          #dynamicTable
+          [nzScroll]="fixHeader ? { y: '240px' } : null"
+          [nzData]="listOfData"
+          [nzSimple]="simple"
+          [nzLoading]="loading"
+          [nzPaginationPosition]="position"
+          [nzShowSizeChanger]="sizeChanger"
+          [nzFrontPagination]="pagination"
+          [nzShowPagination]="pagination"
+          [nzSize]="size"
+          (nzCurrentPageDataChange)="currentPageDataChange($event)"
+        >
+          <thead>
+          <tr *ngIf="header">
+            <th >Nombre</th>
+            <th >Empresa</th>
+            <th nzShowExpand *ngIf="expandable"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-template ngFor let-data [ngForOf]="dynamicTable.data">
+            <tr>
+              <td>{{ data.name }}</td>
+              <td>{{ data.address }}</td>
+              <td nzShowExpand *ngIf="expandable" [(nzExpand)]="data.expand"></td>
+            </tr>
+            <tr [nzExpand]="data.expand && expandable">
+              <td [attr.colspan]="2">{{ data.description }}</td>
+            </tr>
+          </ng-template>
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+    <!-- FIN TABLE-->
+  </div>
+</div>
