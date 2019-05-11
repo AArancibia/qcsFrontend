@@ -26,9 +26,9 @@ export class AcceslabComponent implements OnInit {
       detail: true,
     },
     {
-      title: 'Productos',
+      title: 'Componentes',
       backIcon: false,
-      subtitle: 'Lista de Productos',
+      subtitle: 'Lista de Componentes',
       active: false,
       content: false,
       detail: true,
@@ -56,10 +56,12 @@ export class AcceslabComponent implements OnInit {
   simple = false;
   noResult = false;
   position = 'top';
+  indice = 0;
+  dateFormat: string = 'yyyy/MM/dd';
   constructor() { }
 
   ngOnInit() {
-    for (let i = 1; i <= 100; i++) {
+    for (let i = 1; i <= 40; i++) {
       this.listOfData.push({
         name: 'John Brown',
         age: `${i}2`,
@@ -79,7 +81,6 @@ export class AcceslabComponent implements OnInit {
   }
 
   siguiente( indice: number ) {
-    console.log( indice );
     this.panels.map(
       ( panel, index, array ) => {
         const panelConf = () => {
@@ -97,13 +98,32 @@ export class AcceslabComponent implements OnInit {
         array[ indice + 1 ].active = true;
         array[ indice + 1 ].backIcon = false;
         array[ indice + 1 ].content = true;
-        array[ indice + 1 ].detail = true;
+        array[ indice + 1 ].detail = false;
+      }
+    );
+    this.indice++;
+    this.listOfData.map(
+      ( registros: any ) => registros.expand = false,
+    )
+  }
+
+  onBack( indice: number ) {
+    this.indice = indice;
+    this.panels.map(
+      ( panel, index, array ) => {
+        if ( this.indice < index ) {
+          panel.active = false;
+        }
+        if ( this.indice === index ) {
+          panel.content = true;
+          panel.backIcon = true;
+        }
+        panel.detail = false;
       }
     );
   }
 
   abrirFormulario( indice: number ) {
-    console.log( indice );
     this.panels.map(
       ( panel, index ) => index === indice ? panel.content = true :  panel.content = false
     );

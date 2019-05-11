@@ -1,45 +1,53 @@
 <div nz-row
      nzType="flex" [nzJustify]="'space-around'">
-  <div nz-col [nzXs]="'24'" [nzMd]="'8'" style="background-color: #ffffff;">
-    <h1>HOLA</h1>
+  <div nz-col [nzXs]="'24'" [nzMd]="'8'">
+    <div style="background-color: #ffffff;">
+      <h1>HOLA</h1>
+    </div>
   </div>
   <div nz-col [nzXs]="'24'"  [nzMd]="'1'"></div>
-  <div nz-col [nzXs]="'24'" [nzMd]="'15'" style="background-color: #ffffff;">
-    <nz-page-header (nzBack)="onBack()"
-                    *ngFor="let panel of panels; let indice = index"
+  <div nz-col [nzXs]="'24'" [nzMd]="'15'">
+    <nz-page-header style="background-color: #ffffff;"
+                    *ngFor="let panel of panels; let ind = index"
                     [nzBackIcon]="icon"
                     [hidden]="!panel.active"
-                    [nzTitle]="panel.title" [nzSubtitle]="panel.subtitle">
+                    (nzBack)="onBack( ind )"
+                    [nzTitle]="panel.title"
+                    [ngClass]="panel.backIcon ? 'item-done' : ''"
+                    [nzSubtitle]="panel.subtitle">
       <ng-template #icon>
-        <i nz-icon *ngIf="panel.backIcon" nzType="arrow-left" nzTheme="outline"></i>
+        <i nz-icon *ngIf="panel.backIcon"
+           nzType="arrow-left" nzTheme="outline"></i>
       </ng-template>
       <nz-page-header-extra>
         <i nz-icon nzType="setting"
-           *ngIf="panel.detail"
-           (click)="abrirFormulario( indice )"></i>
+           (click)="abrirFormulario( indice )"
+           *ngIf="panel.detail"></i>
       </nz-page-header-extra>
       <nz-page-header-content *ngIf="panel.content">
         <div *ngIf="indice === 0">
           <form >
             <div nz-row class="margin-bottom-medium">
-              <div nz-col [nzMd]="5">
-                <input type="text" nz-input>
+              <div nz-col [nzMd]="7">
+                <input type="text"
+                       placeholder="Empresa"
+                       nz-input>
               </div>
               <div nz-col [nzMd]="1"></div>
-              <div nz-col [nzMd]="5">
-                <input type="text" nz-input>
+              <div nz-col [nzMd]="7">
+                <input type="text"
+                       placeholder="Nombres"
+                       nz-input>
               </div>
               <div nz-col [nzMd]="1"></div>
-              <div nz-col [nzMd]="5">
-                <input type="text" nz-input>
-              </div>
-              <div nz-col [nzMd]="1"></div>
-              <div nz-col [nzMd]="5">
-                <input type="text" nz-input>
+              <div nz-col [nzMd]="7">
+                <input type="text"
+                       placeholder="Correo"
+                       nz-input>
               </div>
             </div>
             <div nz-row>
-              <div nz-col [nzMd]="5">
+              <div nz-col [nzMd]="7">
                 <nz-select [(ngModel)]="selectedPerfil"
                            name="perfil"
                            nzAllowClear nzPlaceHolder="Choose">
@@ -49,7 +57,7 @@
                 </nz-select>
               </div>
               <div nz-col [nzMd]="1"></div>
-              <div nz-col [nzMd]="5">
+              <div nz-col [nzMd]="7">
                 <nz-select [(ngModel)]="selectedEstado"
                            name="estado"
                            nzAllowClear nzPlaceHolder="Choose">
@@ -58,105 +66,182 @@
                 </nz-select>
               </div>
               <div nz-col [nzMd]="1"></div>
-              <div nz-col [nzMd]="5">
-                <button nz-button
-                        type="button"
-                        (click)="siguiente( indice )"
-                        nzBlock>Filtrar</button>
-              </div>
-              <div nz-col [nzMd]="1"></div>
-              <div nz-col [nzMd]="5">
-                <button nz-button nzBlock>Limpiar</button>
+              <div nz-col [nzMd]="7">
+                <div nz-row>
+                  <div nz-col [nzMd]="11">
+                    <button nz-button
+                            nzBlock
+                            type="button">Filtrar</button>
+                  </div>
+                  <div nz-col [nzMd]="2"></div>
+                  <div nz-col [nzMd]="11">
+                    <button nz-button
+                            nzBlock
+                            type="button">Limpiar</button>
+                  </div>
+                </div>
               </div>
             </div>
           </form>
         </div>
         <div *ngIf="indice === 1">
-          <p>En Maquinas</p>
-          <button nz-button
-                  type="button"
-                  (click)="siguiente( indice )"
-                  nzBlock>Filtrar</button>
+          <form >
+            <div nz-row class="margin-bottom-medium">
+              <div nz-col [nzMd]="7">
+                <input type="text"
+                       placeholder="Empresa"
+                       nz-input>
+              </div>
+              <div nz-col [nzMd]="1"></div>
+              <div nz-col [nzMd]="7">
+                <input type="text"
+                       placeholder="Nombres"
+                       nz-input>
+              </div>
+              <div nz-col [nzMd]="1"></div>
+              <div nz-col [nzMd]="7">
+                <input type="text"
+                       placeholder="Correo"
+                       nz-input>
+              </div>
+            </div>
+            <div nz-row>
+              <div nz-col [nzMd]="7">
+                <nz-select [(ngModel)]="selectedPerfil"
+                           name="perfil"
+                           nzAllowClear nzPlaceHolder="Choose">
+                  <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                  <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                  &lt;!&ndash;<nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>&ndash;&gt;
+                </nz-select>
+              </div>
+              <div nz-col [nzMd]="1"></div>
+              <div nz-col [nzMd]="7">
+                <nz-select [(ngModel)]="selectedEstado"
+                           name="estado"
+                           nzAllowClear nzPlaceHolder="Choose">
+                  <nz-option [nzValue]="true" nzLabel="Activo"></nz-option>
+                  <nz-option [nzValue]="false" nzLabel="Inactivo"></nz-option>
+                </nz-select>
+              </div>
+              <div nz-col [nzMd]="1"></div>
+              <div nz-col [nzMd]="7">
+                <div nz-row>
+                  <div nz-col [nzMd]="11">
+                    <button nz-button
+                            nzBlock
+                            type="button">Filtrar</button>
+                  </div>
+                  <div nz-col [nzMd]="2"></div>
+                  <div nz-col [nzMd]="11">
+                    <button nz-button
+                            nzBlock
+                            type="button">Limpiar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
         <div *ngIf="indice === 2">
-          <p>En Componentes</p>
-          <button nz-button
-                  type="button"
-                  (click)="siguiente( indice )"
-                  nzBlock>Filtrar</button>
+          <form >
+            <div nz-row class="margin-bottom-medium">
+              <div nz-col [nzMd]="7">
+                <input type="text"
+                       placeholder="Empresa"
+                       nz-input>
+              </div>
+              <div nz-col [nzMd]="1"></div>
+              <div nz-col [nzMd]="7">
+                <input type="text"
+                       placeholder="Nombres"
+                       nz-input>
+              </div>
+              <div nz-col [nzMd]="1"></div>
+              <div nz-col [nzMd]="7">
+                <input type="text"
+                       placeholder="Correo"
+                       nz-input>
+              </div>
+            </div>
+            <div nz-row>
+              <div nz-col [nzMd]="7"></div>
+              <div nz-col [nzMd]="1"></div>
+              <div nz-col [nzMd]="7"></div>
+              <div nz-col [nzMd]="1"></div>
+              <div nz-col [nzMd]="7">
+                <div nz-row>
+                  <div nz-col [nzMd]="11">
+                    <button nz-button
+                            nzBlock
+                            type="button">Filtrar</button>
+                  </div>
+                  <div nz-col [nzMd]="2"></div>
+                  <div nz-col [nzMd]="11">
+                    <button nz-button
+                            nzBlock
+                            type="button">Limpiar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
         <div *ngIf="indice === 3">
-          <p>En Muestras</p>
-          <button nz-button
-                  type="button"
-                  (click)="siguiente( indice )"
-                  nzBlock>Filtrar</button>
+          <form >
+            <div nz-row class="margin-bottom-medium">
+              <div nz-col [nzMd]="7">
+                <input type="text"
+                       placeholder="Empresa"
+                       nz-input>
+              </div>
+              <div nz-col [nzMd]="1"></div>
+              <div nz-col [nzMd]="7">
+                <input type="text"
+                       placeholder="Nombres"
+                       nz-input>
+              </div>
+              <div nz-col [nzMd]="1"></div>
+              <div nz-col [nzMd]="7">
+                <input type="text"
+                       placeholder="Correo"
+                       nz-input>
+              </div>
+            </div>
+            <div nz-row>
+              <div nz-col [nzMd]="7">
+                <nz-date-picker
+                  style="width: 100% !important;"
+                  [nzFormat]="dateFormat"></nz-date-picker>
+              </div>
+              <div nz-col [nzMd]="1"></div>
+              <div nz-col [nzMd]="7">
+                <input type="text" nz-input>
+              </div>
+              <div nz-col [nzMd]="1"></div>
+              <div nz-col [nzMd]="7">
+                <div nz-row>
+                  <div nz-col [nzMd]="11">
+                    <button nz-button
+                            nzBlock
+                            type="button">Filtrar</button>
+                  </div>
+                  <div nz-col [nzMd]="2"></div>
+                  <div nz-col [nzMd]="11">
+                    <button nz-button
+                            nzBlock
+                            type="button">Limpiar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
       </nz-page-header-content>
     </nz-page-header>
 
     <!-- TABLE-->
-    <!--<div nz-row style="display: flex; justify-content: center;">
-      <div nz-col [nzMd]="20">
-        <form nz-form nzLayout="inline">
-          <nz-form-item>
-            <nz-form-label><label>Loading</label></nz-form-label>
-            <nz-form-control><nz-switch [(ngModel)]="loading" name="loading"></nz-switch></nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label><label>Pagination</label></nz-form-label>
-            <nz-form-control><nz-switch [(ngModel)]="pagination" name="pagination"></nz-switch></nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label><label>PageSizeChanger</label></nz-form-label>
-            <nz-form-control><nz-switch [(ngModel)]="sizeChanger" name="sizeChanger"></nz-switch></nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label><label>Column Header</label></nz-form-label>
-            <nz-form-control><nz-switch [(ngModel)]="header" name="header"></nz-switch></nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label><label>Expandable</label></nz-form-label>
-            <nz-form-control><nz-switch [(ngModel)]="expandable" name="expandable"></nz-switch></nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label><label>Fixed Header</label></nz-form-label>
-            <nz-form-control><nz-switch [(ngModel)]="fixHeader" name="fixHeader"></nz-switch></nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label><label>No Result</label></nz-form-label>
-            <nz-form-control
-            ><nz-switch [(ngModel)]="noResult" (ngModelChange)="noResultChange($event)" name="noResult"></nz-switch
-            ></nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label><label>Simple Pagination</label></nz-form-label>
-            <nz-form-control><nz-switch [(ngModel)]="simple" name="simple"></nz-switch></nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label><label>Size</label></nz-form-label>
-            <nz-form-control>
-              <nz-radio-group [(ngModel)]="size" name="size">
-                <label nz-radio-button nzValue="default">Default</label>
-                <label nz-radio-button nzValue="middle">Middle</label>
-                <label nz-radio-button nzValue="small">Small</label>
-              </nz-radio-group>
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label><label>Pagination Position</label></nz-form-label>
-            <nz-form-control>
-              <nz-radio-group [(ngModel)]="position" name="position">
-                <label nz-radio-button nzValue="top">Top</label>
-                <label nz-radio-button nzValue="bottom">Bottom</label>
-                <label nz-radio-button nzValue="both">Both</label>
-              </nz-radio-group>
-            </nz-form-control>
-          </nz-form-item>
-        </form>
-      </div>
-    </div>-->
-    <div nz-row style="display: flex; justify-content: center;">
+    <div nz-row class="table__lab">
       <div nz-col [nzMd]="22">
         <nz-table
           #dynamicTable
@@ -172,21 +257,112 @@
           (nzCurrentPageDataChange)="currentPageDataChange($event)"
         >
           <thead>
-          <tr *ngIf="header">
+          <tr *ngIf="indice === 0"><!-- *ngIf="header" -->
             <th >Nombre</th>
             <th >Empresa</th>
+            <th nzShowExpand *ngIf="expandable"></th>
+          </tr>
+          <tr *ngIf="indice === 1"><!-- *ngIf="header" -->
+            <th >Código</th>
+            <th >N° Interno</th>
+            <th >Marca</th>
+            <th >Modelo</th>
+            <th >Serie</th>
+            <th nzShowExpand *ngIf="expandable"></th>
+          </tr>
+          <tr *ngIf="indice === 2"><!-- *ngIf="header" -->
+            <th >Descripción</th>
+            <th >Marca</th>
+            <th >Lubricante</th>
+            <th nzShowExpand *ngIf="expandable"></th>
+          </tr>
+          <tr *ngIf="indice === 3"><!-- *ngIf="header" -->
+            <th >Muestra</th>
+            <th >Fec. Muestreo</th>
+            <th >Estado</th>
             <th nzShowExpand *ngIf="expandable"></th>
           </tr>
           </thead>
           <tbody>
           <ng-template ngFor let-data [ngForOf]="dynamicTable.data">
-            <tr>
+            <tr *ngIf="indice === 0">
               <td>{{ data.name }}</td>
               <td>{{ data.address }}</td>
               <td nzShowExpand *ngIf="expandable" [(nzExpand)]="data.expand"></td>
             </tr>
-            <tr [nzExpand]="data.expand && expandable">
-              <td [attr.colspan]="2">{{ data.description }}</td>
+            <tr *ngIf="indice === 0" [nzExpand]="data.expand && expandable">
+              <td [attr.colspan]="3">
+                <div nz-row>
+                  <div nz-col [nzMd]="24">
+                    <p>Correo</p>
+                    <p>Otro</p>
+                  </div>
+                </div>
+                <div nz-row nzType="flex" nzJustify="end">
+                  <button nz-button nzType="default">Eliminar<i nz-icon type="search"></i></button>
+                  <button nz-button nzType="default">Editar<i nz-icon type="search"></i></button>
+                  <button nz-button nzType="default" (click)="siguiente( indice )">Máquinas<i nz-icon type="search"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="indice === 1">
+              <td>{{ data.name }}</td>
+              <td>{{ data.address }}</td>
+              <td>{{ data.address }}</td>
+              <td>{{ data.address }}</td>
+              <td>{{ data.address }}</td>
+              <td nzShowExpand *ngIf="expandable" [(nzExpand)]="data.expand"></td>
+            </tr>
+            <tr *ngIf="indice === 1" [nzExpand]="data.expand && expandable">
+              <td [attr.colspan]="6">
+                <div nz-row>
+                  <div nz-col [nzMd]="24">
+                    <p>Correo</p>
+                    <p>Otro</p>
+                  </div>
+                </div>
+                <div nz-row nzType="flex" nzJustify="end">
+                  <button nz-button nzType="default">Eliminar<i nz-icon type="search"></i></button>
+                  <button nz-button nzType="default">Editar<i nz-icon type="search"></i></button>
+                  <button nz-button nzType="default" (click)="siguiente( indice )">Componentes<i nz-icon type="search"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="indice === 2">
+              <td>{{ data.name }}</td>
+              <td>{{ data.address }}</td>
+              <td>{{ data.address }}</td>
+              <td nzShowExpand *ngIf="expandable" [(nzExpand)]="data.expand"></td>
+            </tr>
+            <tr *ngIf="indice === 2" [nzExpand]="data.expand && expandable">
+              <td [attr.colspan]="4">
+                <div nz-row>
+                  <div nz-col [nzMd]="24">
+                    <p>Correo</p>
+                    <p>Otro</p>
+                  </div>
+                </div>
+                <div nz-row nzType="flex" nzJustify="end">
+                  <button nz-button nzType="default">Eliminar<i nz-icon type="search"></i></button>
+                  <button nz-button nzType="default">Editar<i nz-icon type="search"></i></button>
+                  <button nz-button nzType="default" (click)="siguiente( indice )">Muestras<i nz-icon type="search"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="indice === 3">
+              <td>{{ data.name }}</td>
+              <td>{{ data.address }}</td>
+              <td>{{ data.address }}</td>
+              <td nzShowExpand *ngIf="expandable" [(nzExpand)]="data.expand"></td>
+            </tr>
+            <tr *ngIf="indice === 3" [nzExpand]="data.expand && expandable">
+              <td [attr.colspan]="4">
+                <div nz-row>
+                  <div nz-col [nzMd]="24">
+                    <p>Aqui va el ultimo</p>
+                  </div>
+                </div>
+              </td>
             </tr>
           </ng-template>
           </tbody>

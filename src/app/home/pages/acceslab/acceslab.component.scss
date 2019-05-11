@@ -9,3 +9,17 @@
 [nz-button] {
 
 }
+
+.item-done {
+  border: 1px solid #cccccc !important;
+  border-radius: .2rem;
+}
+
+.table__lab {
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff;
+  margin-top: 1rem;
+  padding: 1rem 1rem 1.5rem 1rem;
+  box-shadow: 0 .5rem .5rem rgba( #000000, .2 );
+}
