@@ -12,6 +12,8 @@ import es from '@angular/common/locales/es';
 import {SharedModule} from './shared/shared.module';
 import {HomeModule} from './home/home.module';
 import {AuthenticationModule} from './authentication/authentication.module';
+import {QcsStoreModule} from '@app/store/qcs-store.module';
+import {UsuarioModule} from '@app/features/usuario/usuario.module';
 
 registerLocaleData(es);
 
@@ -27,7 +29,8 @@ registerLocaleData(es);
     HomeModule,
     AuthenticationModule,
     AppRoutingModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    QcsStoreModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: es_ES }],
   bootstrap: [AppComponent]

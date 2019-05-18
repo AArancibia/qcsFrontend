@@ -8,6 +8,7 @@ import { AcceslabComponent } from './pages/acceslab/acceslab.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormsModule} from '@angular/forms';
+import {UsuarioModule} from '@app/features/usuario/usuario.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {FormsModule} from '@angular/forms';
     SharedModule,
     NgZorroAntdModule,
     FlexLayoutModule,
+    UsuarioModule,
   ],
   exports: [
     HomeComponent,

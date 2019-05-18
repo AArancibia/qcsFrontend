@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {Store} from '@ngrx/store';
+import {AppState} from '@app/features/usuario/state/user.type';
+import {Observable} from 'rxjs';
+import {Users} from '@app/core/model/users.model';
+import {LoadUsers} from '@app/features/usuario/state/user.action';
 
 @Component({
   selector: 'app-acceslab',
@@ -46,19 +51,19 @@ export class AcceslabComponent implements OnInit {
   loading = false;
   sizeChanger = true;
   pagination = true;
-  header = true;
-  fixHeader = false;
   size = 'small';
   expandable = true;
   allChecked = false;
   indeterminate = false;
   displayData: any[] = [];
   simple = false;
-  noResult = false;
   position = 'top';
   indice = 0;
   dateFormat: string = 'yyyy/MM/dd';
-  constructor() { }
+  users: Observable< Users[] >;
+  constructor(
+    private store: Store< AppState >
+  ) { }
 
   ngOnInit() {
     for (let i = 1; i <= 40; i++) {
@@ -71,6 +76,8 @@ export class AcceslabComponent implements OnInit {
         expand: false
       });
     }
+    this.store.dispatch( new LoadUsers() );
+    this.users = this.store.select( state => state.users.users );
   }
 
   noResultChange(status: boolean): void {

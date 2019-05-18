@@ -6,6 +6,14 @@
   margin-bottom: .8rem;
 }
 
+.margin-top-medium {
+  margin-top: .6rem;
+}
+
+.margin-top-small {
+  margin-top: .4rem;
+}
+
 [nz-button] {
 
 }
@@ -22,4 +30,8 @@
   margin-top: 1rem;
   padding: 1rem 1rem 1.5rem 1rem;
   box-shadow: 0 .5rem .5rem rgba( #000000, .2 );
+}
+
+.container__form {
+  padding: 1rem;
 }
